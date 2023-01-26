@@ -1,4 +1,3 @@
-import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import Button from '../components/Button'
 
@@ -13,6 +12,7 @@ export default function ForgotPassword() {
           <img 
             src='https://images.unsplash.com/flagged/photo-1564767609342-620cb19b2357' 
             className='w-full rounded-2xl'
+            alt="lock"
           />
         </div>
         <div className='mx-auto w-full md:mt-6 lg:w-[40%] lg:ml-20 md:w-[67%] sm:my-5 '>

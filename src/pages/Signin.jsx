@@ -14,6 +14,7 @@ export default function Signin() {
           <img 
             src='https://images.unsplash.com/flagged/photo-1564767609342-620cb19b2357' 
             className='w-full rounded-2xl'
+            alt="key"
           />
         </div>
         <div className='mx-auto w-full md:mt-6 lg:w-[40%] lg:ml-20 md:w-[67%] sm:my-5 '>

@@ -2,9 +2,70 @@ import React, { useState } from 'react'
 import {AiFillEyeInvisible,AiFillEye} from 'react-icons/ai'
 import { Link } from 'react-router-dom'
 import Button from '../components/Button'
+import { getAuth, createUserWithEmailAndPassword, updateProfile } from "firebase/auth"
+import {db} from "../Firebase"
+import { doc, serverTimestamp, setDoc } from 'firebase/firestore'
+import { toast } from 'react-toastify'
+import { useNavigate } from 'react-router-dom'
 
 export default function Signup() {
-  const [showPassword,setShowPassword] = useState(false)  
+  const navigate=useNavigate()
+  const [showPassword,setShowPassword] = useState(false)
+  const [name,setName] = useState('')
+  const [email,setEmail] = useState('')
+  const [password,setPassword] = useState('')
+
+
+  async function onSubmit(e){
+    e.preventDefault()
+    try{
+      const auth = getAuth();
+      if(name===''){
+        throw {code:'auth/no-name'}
+      }
+      const userCredential=await createUserWithEmailAndPassword(auth, email, password)
+      console.log(userCredential)
+      const user = userCredential.user
+      updateProfile(user,{
+        displayName:name
+      })
+
+      const userDetails = {
+        'name':name,
+        'email':email,
+        'timestamp':serverTimestamp()
+      }
+
+      await setDoc(doc(db,"users",user.uid),userDetails)
+      toast.success("Registration Successful")
+      navigate('/')
+    }catch(error){
+      console.log(error)
+      const msg = displayErrors(error.code)
+      toast.error(msg)
+    }
+  }
+
+  function displayErrors(code){
+    switch(code){
+      case 'auth/email-already-in-use':
+        return "This Email is Already Registered"
+
+      case 'auth/invalid-email':
+          return "Invalid Email Address"
+
+      case 'auth/weak-password':
+          return "Password should be atleast 6 characters long"
+
+      case 'auth/no-name':
+          return "Name is Required"
+
+      default:
+          return "Something Went Wrong!!"
+        
+    }
+  }
+
   return (
     <section>
       <h1 className='text-3xl font-bold text-center py-6'>Sign Up</h1>
@@ -14,16 +75,18 @@ export default function Signup() {
           <img 
             src='https://images.unsplash.com/flagged/photo-1564767609342-620cb19b2357' 
             className='w-full rounded-2xl'
+            alt="lock"
           />
         </div>
         <div className='mx-auto w-full md:mt-6 lg:w-[40%] lg:ml-20 md:w-[67%] sm:my-5 '>
-          <form>
+          <form onSubmit={onSubmit}>
           <input 
               type='text'
               className='w-full rounded-lg h-8 px-5 py-6 
               border-gray-300 border-2 text-lg focus:border-blue-500 focus:outline-none
               transition ease-in-out duration-300'
               placeholder='Enter Your Name'
+              onChange={(e)=>setName(e.target.value)}
             />
 
             <input 
@@ -32,6 +95,7 @@ export default function Signup() {
               border-gray-300 border-2 text-lg focus:border-blue-500 focus:outline-none
               transition ease-in-out duration-300'
               placeholder='Email Address'
+              onChange={(e)=>setEmail(e.target.value)}
             />
 
             <div className=' relative'>
@@ -41,6 +105,7 @@ export default function Signup() {
                 border-gray-300 border-2 text-lg focus:border-blue-500 focus:outline-none
                 transition ease-in-out duration-300'
                 placeholder='Password'
+                onChange={(e)=>setPassword(e.target.value)}
               />
                 {showPassword?(
                   <AiFillEye 
