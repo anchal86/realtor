@@ -16,6 +16,7 @@ export default function Signup() {
   const [password,setPassword] = useState('')
 
 
+
   async function onSubmit(e){
     e.preventDefault()
     try{
@@ -130,7 +131,7 @@ export default function Signup() {
               <p className='font-bold mx-3'>OR</p>
             </div>
             
-            <Button title='Continue With Google' back='bg-red-500' pic='google' />
+            <Button type="button" click={true} title='Continue With Google' back='bg-red-500' pic='google' />
             
           </form>
         </div>

@@ -1,7 +1,22 @@
+import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import Button from '../components/Button'
+import { getAuth, sendPasswordResetEmail } from "firebase/auth";
+import {toast} from 'react-toastify'
 
 export default function ForgotPassword() {
+  const [email,setEmail]=useState('')
+  
+  async function onSubmit(e){
+    e.preventDefault()
+    try {
+      const auth = getAuth();
+      await sendPasswordResetEmail(auth, email)
+      toast.success("Reset Email Sent Successfully. Check your Inbox")
+    } catch (error) {
+      toast.error("This Email is Not Registered with us")
+    }
+  }
   
   return (
     <section>
@@ -16,13 +31,14 @@ export default function ForgotPassword() {
           />
         </div>
         <div className='mx-auto w-full md:mt-6 lg:w-[40%] lg:ml-20 md:w-[67%] sm:my-5 '>
-          <form>
+          <form onSubmit={onSubmit}>
             <input 
               type='email'
               className='w-full rounded-lg h-8 px-5 py-6 
               border-gray-300 border-2 text-lg focus:border-blue-500 focus:outline-none
               transition ease-in-out duration-300'
               placeholder='Email Address'
+              onChange={(e)=>setEmail(e.target.value)}
             />
 
             
@@ -37,7 +53,7 @@ export default function ForgotPassword() {
               <p className='font-bold mx-3'>OR</p>
             </div>
             
-            <Button title='Continue With Google' back='bg-red-500' pic='google' />
+            <Button type="button" click={true} title='Continue With Google' back='bg-red-500' pic='google' />
             
           </form>
         </div>
