@@ -85,7 +85,7 @@ export default function Signup() {
               type='text'
               className='w-full rounded-lg h-8 px-5 py-6 
               border-gray-300 border-2 text-lg focus:border-blue-500 focus:outline-none
-              transition ease-in-out duration-300'
+              transition ease-in-out duration-300 mb-3'
               placeholder='Enter Your Name'
               onChange={(e)=>setName(e.target.value)}
             />
@@ -94,7 +94,7 @@ export default function Signup() {
               type='email'
               className='w-full rounded-lg h-8 px-5 py-6 
               border-gray-300 border-2 text-lg focus:border-blue-500 focus:outline-none
-              transition ease-in-out duration-300'
+              transition ease-in-out duration-300 mb-3'
               placeholder='Email Address'
               onChange={(e)=>setEmail(e.target.value)}
             />
@@ -104,7 +104,7 @@ export default function Signup() {
                 type={showPassword?'text':'password'}
                 className='w-full rounded-lg h-8 px-5 py-6 
                 border-gray-300 border-2 text-lg focus:border-blue-500 focus:outline-none
-                transition ease-in-out duration-300'
+                transition ease-in-out duration-300 mb-3'
                 placeholder='Password'
                 onChange={(e)=>setPassword(e.target.value)}
               />
