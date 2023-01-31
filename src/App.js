@@ -10,8 +10,6 @@ import 'react-toastify/dist/ReactToastify.css';
 import Profile from "./pages/Profile";
 import PrivateRoutes from "./components/PrivateRoutes";
 
-
-
 function App() {
   return (
     <>
@@ -22,11 +20,7 @@ function App() {
           <Route path="/offers" element={<Offers />} />
           <Route path="/profile" element={<PrivateRoutes />}>
             <Route path="/profile" element={<Profile />} />  
-          </Route>
-            
-            
-          
-          
+          </Route>          
           <Route path="/sign-in" element={<Signin />} />
           <Route path="/sign-up" element={<Signup />} />
           <Route path="/forgot-password" element={<ForgotPassword />} />
