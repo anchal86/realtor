@@ -1,5 +1,5 @@
 import React from 'react'
-import {FcGoogle} from 'react-icons/fc'
+import {FcGoogle,FcHome} from 'react-icons/fc'
 import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
@@ -8,7 +8,7 @@ import {db} from '../Firebase'
 
 
 
-export default function Button({title,back,pic,type,click}) {
+export default function Button({title,back,pic,type,click,text}) {
   const navigate=useNavigate()
   
   async function OAuth(){
@@ -39,6 +39,6 @@ export default function Button({title,back,pic,type,click}) {
   }
 
   return (
-    <button onClick={click?OAuth:null} type={type} className={`flex items-center justify-center uppercase ${back} text-white w-full my-5 py-2 rounded-md`}>{pic?<FcGoogle className='bg-white mr-3'/>:''}{title}</button>
+    <button onClick={click?OAuth:null} type={type} className={`flex items-center justify-center shadow-md hover:shadow-lg uppercase ${back} ${text?text:'text-white'} w-full my-5 py-2 rounded-md`}>{pic?pic==='google'?<FcGoogle className='bg-white mr-3 text-2xl'/>:<FcHome className='bg-red-300 mr-3 rounded-full text-2xl'/>:''}{title}</button>
   )
 }

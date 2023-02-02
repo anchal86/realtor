@@ -5,6 +5,8 @@ import { useState } from 'react'
 import { useNavigate } from 'react-router'
 import { toast } from 'react-toastify'
 import { db } from '../Firebase'
+import Button from '../components/Button'
+import { Link } from 'react-router-dom'
 
 export default function Profile() {
     const auth=getAuth()
@@ -73,6 +75,10 @@ export default function Profile() {
                     onClick={signOut}
                     className='text-blue-600 hover:text-blue-800 cursor-pointer transition duration-200 ease-in-out'>Sign out</p>
                 </div>
+                
+                <Link to="/create-listing">
+                    <Button type="button" title='Sell Or Rent Your Home' back='bg-blue-700' pic='home' />
+                </Link>
                 
             </div>
         </div>
