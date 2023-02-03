@@ -39,6 +39,6 @@ export default function Button({title,back,pic,type,click,text}) {
   }
 
   return (
-    <button onClick={click?OAuth:null} type={type} className={`flex items-center justify-center shadow-md hover:shadow-lg uppercase ${back} ${text?text:'text-white'} w-full my-5 py-2 rounded-md`}>{pic?pic==='google'?<FcGoogle className='bg-white mr-3 text-2xl'/>:<FcHome className='bg-red-300 mr-3 rounded-full text-2xl'/>:''}{title}</button>
+    <button onClick={click?OAuth:null} type={type} className={`flex items-center justify-center shadow-md hover:shadow-lg uppercase ${back} ${text?text:'text-white'} w-full  py-2 rounded-md`}>{pic?pic==='google'?<FcGoogle className='bg-white mr-3 text-2xl'/>:<FcHome className='bg-red-300 mr-3 rounded-full text-2xl'/>:''}{title}</button>
   )
 }

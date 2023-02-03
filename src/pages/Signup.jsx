@@ -120,14 +120,14 @@ export default function Signup() {
                   />
                 )}                
             </div>
-            <div className='flex justify-between'>
+            <div className='flex justify-between mb-3'>
               <p className='text-lg'>Already Have An Account?<Link to='/sign-in' className='font-semibold text-red-600'> Login  </Link></p>
               <Link to='/forgot-password' className='font-semibold text-blue-500'>Forgot Password?</Link>
             </div>
             
-            <Button title='Sign up' back='bg-blue-600'/> 
+            <Button title='Sign up' back='bg-blue-600' /> 
             
-            <div className='flex items-center before:border-t  before:flex-1  before:border-gray-500 after:border-t after:flex-1 after:border-gray-500'>
+            <div className='flex items-center my-4 before:border-t  before:flex-1  before:border-gray-500 after:border-t after:flex-1 after:border-gray-500'>
               <p className='font-bold mx-3'>OR</p>
             </div>
             

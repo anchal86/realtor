@@ -42,14 +42,14 @@ export default function ForgotPassword() {
             />
 
             
-            <div className='flex justify-between'>
+            <div className='flex justify-between mb-4'>
               <p className='text-lg'>Don't Have An Account?<Link to='/sign-up' className='font-semibold text-red-600'> Register</Link></p>
-              <Link to='sign-in' className='font-semibold text-blue-500'>Signin Instead</Link>
+              <Link to='/sign-in' className='font-semibold text-blue-500'>Signin Instead</Link>
             </div>
             
             <Button title='Reset Password' back='bg-blue-600'/> 
             
-            <div className='flex items-center before:border-t  before:flex-1  before:border-gray-500 after:border-t after:flex-1 after:border-gray-500'>
+            <div className='flex items-center my-4 before:border-t  before:flex-1  before:border-gray-500 after:border-t after:flex-1 after:border-gray-500'>
               <p className='font-bold mx-3'>OR</p>
             </div>
             

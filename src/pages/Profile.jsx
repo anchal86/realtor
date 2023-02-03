@@ -59,7 +59,7 @@ export default function Profile() {
                     />
                 </form>
 
-                <div className='flex justify-between text-lg'>
+                <div className='flex justify-between text-lg mb-4'>
                     <p>Do you want to change your name ?  
                         <span 
                         className='text-red-600 hover:text-red-800 cursor-pointer transition duration-200 ease-in-out'
