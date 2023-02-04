@@ -3,9 +3,40 @@ import { Link } from 'react-router-dom'
 import Button from '../components/Button'
 import { getAuth, sendPasswordResetEmail } from "firebase/auth";
 import {toast} from 'react-toastify'
+import { doc,serverTimestamp,setDoc,getDoc } from 'firebase/firestore';
+import {db} from '../Firebase'
+import {  signInWithPopup, GoogleAuthProvider } from "firebase/auth";
+import { useNavigate } from 'react-router-dom';
 
 export default function ForgotPassword() {
   const [email,setEmail]=useState('')
+  const navigate=useNavigate()
+  async function OAuth(){
+    try {
+      const auth = getAuth();
+      const provider = new GoogleAuthProvider();
+      const userCredentials = await signInWithPopup(auth, provider)
+      const user=userCredentials.user
+      console.log(user)
+      navigate('/')
+
+      const docSnap = await getDoc(doc(db, "users", user.uid));
+
+      if(!docSnap.exists()){
+        await setDoc(doc(db,"users",user.uid),{
+          email:user.email,
+          name:user.displayName,
+          timestamp:serverTimestamp()
+        })
+      }
+
+      
+      toast.success("Logged in successfully")
+    } catch (error) {
+      toast.error("Something Went Wrong")
+    }
+    
+  }
   
   async function onSubmit(e){
     e.preventDefault()
@@ -53,7 +84,7 @@ export default function ForgotPassword() {
               <p className='font-bold mx-3'>OR</p>
             </div>
             
-            <Button type="button" click={true} title='Continue With Google' back='bg-red-500' pic='google' />
+            <Button type="button" onClick={OAuth} title='Continue With Google' back='bg-red-500' pic='google' />
             
           </form>
         </div>

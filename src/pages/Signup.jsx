@@ -4,18 +4,45 @@ import { Link } from 'react-router-dom'
 import Button from '../components/Button'
 import { getAuth, createUserWithEmailAndPassword, updateProfile } from "firebase/auth"
 import {db} from "../Firebase"
-import { doc, serverTimestamp, setDoc } from 'firebase/firestore'
+import { doc, serverTimestamp, setDoc,getDoc } from 'firebase/firestore'
 import { toast } from 'react-toastify'
 import { useNavigate } from 'react-router-dom'
+import { signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 
 export default function Signup() {
+
   const navigate=useNavigate()
   const [showPassword,setShowPassword] = useState(false)
   const [name,setName] = useState('')
   const [email,setEmail] = useState('')
   const [password,setPassword] = useState('')
 
+  async function OAuth(){
+    try {
+      const auth = getAuth();
+      const provider = new GoogleAuthProvider();
+      const userCredentials = await signInWithPopup(auth, provider)
+      const user=userCredentials.user
+      console.log(user)
+      navigate('/')
 
+      const docSnap = await getDoc(doc(db, "users", user.uid));
+
+      if(!docSnap.exists()){
+        await setDoc(doc(db,"users",user.uid),{
+          email:user.email,
+          name:user.displayName,
+          timestamp:serverTimestamp()
+        })
+      }
+
+      
+      toast.success("Logged in successfully")
+    } catch (error) {
+      toast.error("Something Went Wrong")
+    }
+    
+  }
 
   async function onSubmit(e){
     e.preventDefault()
@@ -131,7 +158,7 @@ export default function Signup() {
               <p className='font-bold mx-3'>OR</p>
             </div>
             
-            <Button type="button" click={true} title='Continue With Google' back='bg-red-500' pic='google' />
+            <Button type="button" onClick={OAuth} title='Continue With Google' back='bg-red-500' pic='google' />
             
           </form>
         </div>
